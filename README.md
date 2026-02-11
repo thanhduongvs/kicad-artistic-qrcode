@@ -55,6 +55,9 @@ Add our custom repo to **the Plugin and Content Manager**, the URL is:
 4. Click **Select Logo** if you want to embed an image.
 5. Click **Save** to generate a `.kicad_mod` file or **Copy Clipboard** to paste directly onto your PCB.
 
+## Demo Video
+[![Watch the video](https://img.youtube.com/vi/spoHBNd5JyA/sddefault.jpg)](https://youtu.be/spoHBNd5JyA)
+
 ## 📦 Libraries Used
 This project relies on several powerful open-source libraries:
  - [PySide6](https://pypi.org/project/PySide6/): The official Python module from the Qt for Python project, used for the graphical user interface.
