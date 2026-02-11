@@ -57,8 +57,7 @@ class MainWindow(QMainWindow):
         
         self.ui.lineEdit.textChanged.connect(self.create_qr)
         self.ui.spinSizeQr.valueChanged.connect(self.create_qr)
-        
-        # [NEW] Connect Layer Change
+
         self.ui.comboLayer.currentIndexChanged.connect(self.update_layer_color)
 
         self.ui.comboGlobalShape.currentIndexChanged.connect(self.on_global_changed)
@@ -323,8 +322,8 @@ class MainWindow(QMainWindow):
             h_new = max(1, h_new)
 
             # 4. Hiển thị ảnh
-            self.imgP.setPixmap(pil2pixmap(im.resize((w_new, h_new), Image.NEAREST)))
-            self.imgP.adjustSize() 
+            self.preLogo.setPixmap(pil2pixmap(im.resize((w_new, h_new), Image.NEAREST)))
+            self.preLogo.adjustSize() 
             
         except Exception as e: print(f"Error updating preview: {e}")
 
@@ -340,8 +339,8 @@ class MainWindow(QMainWindow):
 
     def button_remove_logo_clicked(self):
         self.logo_path = None
-        self.imgP.clear()
-        self.imgP.setText("Logo\nPreview")
+        self.preLogo.clear()
+        self.preLogo.setText("Logo\nPreview")
         self.create_qr()
 
     def button_close_clicked(self):
