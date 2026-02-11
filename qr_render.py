@@ -11,7 +11,7 @@ from shapely.affinity import rotate, translate, scale
 
 def get_superellipse_n(slider_val):
     if slider_val <= 50:
-        return 0.8 + (slider_val / 50.0) * 1.25
+        return 0.8 + (slider_val / 50.0) * 1.2
     else:
         return 2.0 + ((slider_val - 50) / 50.0) * 6.0
 

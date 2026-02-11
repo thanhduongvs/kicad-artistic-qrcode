@@ -1,12 +1,12 @@
-# QR Generator
+# ![icon](icon.png) Artistic QR Code Generator
 
-# KiCad Artistic QR Code Generator
+<img src="https://img.shields.io/badge/KiCad-v9-brightgreen?style=for-the-badge&logo=KiCad"> <img src="https://img.shields.io/badge/kicad--python-v0.5.0-brightgreen?style=for-the-badge"> <img src="https://img.shields.io/badge/PySide6-Qt-brightgreen?style=for-the-badge">
 
 A powerful Python-based tool designed to generate artistic, vector-based QR codes specifically for **KiCad PCB designs**. 
 
 Unlike standard QR generators that output raster images (PNG/JPG), this tool uses computational geometry (`Shapely`) to create precise **polygons** and exports them directly as **KiCad Footprint files (`.kicad_mod`)**. This allows you to place aesthetic, functional QR codes on your PCB's Silkscreen or Copper layers without quality loss.
 
-![Preview Screenshot](https://via.placeholder.com/800x400?text=Insert+Application+Screenshot+Here)
+![Preview Screenshot](images/gui.png)
 
 ## 🚀 Key Features
 
@@ -30,11 +30,42 @@ Unlike standard QR generators that output raster images (PNG/JPG), this tool use
 
 ## 🛠️ Installation
 
-### Prerequisites
-* Python 3.8+
-* Pip
+### 1. Installation via PCM (Recommended)
+Add our custom repo to **the Plugin and Content Manager**, the URL is:
+`https://raw.githubusercontent.com/thanhduongvs/kicad-repository/main/repository.json`
 
-### 1. Clone the repository
-```bash
-git clone [https://github.com/yourusername/kicad-qr-generator.git](https://github.com/yourusername/kicad-qr-generator.git)
-cd kicad-qr-generator
+![pcm](images/pcm.png)
+
+### 2. Installation via Source Code
+- Download the plugin source code.
+- Locate your KiCad plugins folder:
+  - **Windows:** `Documents\KiCad\9.0\plugins`
+  - **Linux:** `~/.local/share/kicad/9.0/plugins`
+  - **macOS:** `~/Documents/KiCad/9.0/plugins`
+- Create a folder named `artistic_qrcode_generator` inside the plugins directory.
+- Copy all plugin files (`main.py`, `__init__.py`, `metadata.json`, `ui/`, etc.) into that folder.
+- **Important:** Install required dependencies (`PySide6`, `shapely`, `qrcode`, `opencv-python`, `numpy`, `Pillow`) into KiCad's Python environment.
+- Restart KiCad / PCB Editor.
+
+## 🖥️ Usage
+
+1. Open **PCB Editor**.
+2. Go to **Tools** -> **External Plugins** -> **Artistic QR Code Generator** (or click the icon on the toolbar).
+3. Configure your QR code (Content, Size, Style).
+4. Click **Select Logo** if you want to embed an image.
+5. Click **Save** to generate a `.kicad_mod` file or **Copy Clipboard** to paste directly onto your PCB.
+
+## 📦 Libraries Used
+This project relies on several powerful open-source libraries:
+ - [PySide6](https://pypi.org/project/PySide6/): The official Python module from the Qt for Python project, used for the graphical user interface.
+ - [Shapely](https://pypi.org/project/shapely/): Used for computational geometry operations (Union, Difference, Buffer) to create the "Liquid" effects and smooth shapes.
+ - [qrcode](https://pypi.org/project/qrcode/): The standard Python library for generating the raw QR matrix.
+ - [OpenCV](https://pypi.org/project/opencv-python/): Used for processing user logos, detecting contours, and converting bitmaps to vectors.
+ - [NumPy](https://pypi.org/project/numpy/): Essential for efficient matrix manipulation and coordinate calculations.
+ - [Pillow](https://pypi.org/project/pillow/): Used for image loading and basic processing before vectorization.
+
+## 📜 License and Credits
+
+Plugin code licensed under MIT, see `LICENSE` for more info.
+
+ - This project was heavily inspired by the beautiful generative art concepts found in [QRFrame](https://qrframe.kylezhe.ng).

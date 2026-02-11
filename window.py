@@ -72,7 +72,7 @@ class MainWindow(QMainWindow):
         self.ui.sliderFinderRound.valueChanged.connect(self.slider_finderround_changed)
         self.ui.spinFinderRound.valueChanged.connect(self.spin_finderround_changed)
 
-        #self.ui.sliderDataRound.valueChanged.connect(self.update_labels)
+        self.ui.sliderDataRound.valueChanged.connect(self.update_labels)
         self.ui.sliderDataRound.valueChanged.connect(self.create_qr)
         self.ui.sliderDataRound.valueChanged.connect(self.slider_dataround_changed)
         self.ui.spinDataRound.valueChanged.connect(self.spin_dataround_changed)
@@ -81,7 +81,7 @@ class MainWindow(QMainWindow):
         self.ui.sliderModuleSize.valueChanged.connect(self.slider_modulesize_changed)
         self.ui.spinModuleSize.valueChanged.connect(self.spin_modulesize_changed)
         
-        #self.ui.sliderNoiseSeed.valueChanged.connect(self.update_labels)
+        self.ui.sliderNoiseSeed.valueChanged.connect(self.update_labels)
         self.ui.sliderNoiseSeed.valueChanged.connect(self.create_qr)
         self.ui.sliderNoiseSeed.valueChanged.connect(self.slider_noiseseed_changed)
         self.ui.spinNoiseSeed.valueChanged.connect(self.spin_noiseseed_changed)
@@ -109,12 +109,37 @@ class MainWindow(QMainWindow):
         QTimer.singleShot(100, self.create_qr)
     
     def slider_finderround_changed(self):
+        style = self.ui.comboFinderStyle.currentText()
         value = self.ui.sliderFinderRound.value()
-        self.ui.spinFinderRound.setValue(value)
+        
+        if style == "Superellipse":
+            target_val = get_superellipse_n(value)
+        else:
+            target_val = float(value)
+            
+        self.ui.spinFinderRound.blockSignals(True)
+        self.ui.spinFinderRound.setValue(target_val)
+        self.ui.spinFinderRound.blockSignals(False)
     
     def spin_finderround_changed(self):
+        style = self.ui.comboFinderStyle.currentText()
         value = self.ui.spinFinderRound.value()
-        self.ui.sliderFinderRound.setValue(value)
+        
+        target_val = 0
+        if style == "Superellipse":
+            if value <= 2.0:
+                target_val = int(round(((value - 0.8) / 1.2) * 50))
+            else:
+                target_val = int(round(((value - 2.0) / 6.0) * 50 + 50))
+        else:
+            target_val = int(value)
+            
+        #target_val = max(0, min(100, target_val))
+
+        self.ui.sliderFinderRound.blockSignals(True)
+        self.ui.sliderFinderRound.setValue(target_val)
+        self.ui.labelFinderRound.setText(f"Finder Roundness (n={value:.2f})")
+        self.ui.sliderFinderRound.blockSignals(False)
 
     def slider_dataround_changed(self):
         value = self.ui.sliderDataRound.value()
@@ -204,6 +229,20 @@ class MainWindow(QMainWindow):
 
     def on_finderstyle_changed(self):
         value = self.ui.comboFinderStyle.currentText()
+        if value == "Superellipse":
+            val_f = self.ui.sliderFinderRound.value()
+            nf = get_superellipse_n(val_f)
+            self.ui.spinFinderRound.setDecimals(2)
+            self.ui.spinFinderRound.setRange(0.8, 8)
+            self.ui.spinFinderRound.setSingleStep(0.01)
+            self.ui.spinFinderRound.setValue(nf)
+        else:
+            val = self.ui.sliderFinderRound.value()
+            self.ui.spinFinderRound.setDecimals(0)
+            self.ui.spinFinderRound.setRange(0, 100)
+            self.ui.spinFinderRound.setSingleStep(1)
+            self.ui.spinFinderRound.setValue(val)
+
         if value in ["Square", "Circle", "Diamond"]:
             self.ui.sliderFinderRound.setEnabled(False)
             self.ui.sliderDataRound.setEnabled(False)
@@ -220,12 +259,14 @@ class MainWindow(QMainWindow):
         if "Superellipse" in self.ui.comboFinderStyle.currentText():
             nf = get_superellipse_n(val_f)
             self.ui.labelFinderRound.setText(f"Finder Roundness (n={nf:.2f})")
-        else: self.ui.labelFinderRound.setText(f"Finder Roundness: {val_f}%")
+        else:
+            self.ui.labelFinderRound.setText(f"Finder Roundness: {val_f}%")
         val_d = self.ui.sliderDataRound.value()
         if "Superellipse" in self.ui.comboDataStyle.currentText():
             nd = get_superellipse_n(val_d)
             self.ui.labelDataRound.setText(f"Data Roundness (n={nd:.2f})")
-        else: self.ui.labelDataRound.setText(f"Data Roundness: {val_d}%")
+        else: 
+            self.ui.labelDataRound.setText(f"Data Roundness: {val_d}%")
         self.ui.labelNoiseSeed.setText(f"Noise Seed: {self.ui.sliderNoiseSeed.value()}")
     
 
