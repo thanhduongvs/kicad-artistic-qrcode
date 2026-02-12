@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_3">
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,1">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,3">
       <property name="sizeConstraint">
        <enum>QLayout::SizeConstraint::SetMinimumSize</enum>
       </property>
@@ -115,14 +115,14 @@
           <item row="1" column="0">
            <widget class="QLabel" name="labelDataRound">
             <property name="text">
-             <string>Data Roundness  (0% - 100%):</string>
+             <string>Data Roundness: Disable</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="labelFinderRound">
             <property name="text">
-             <string>Finder Roundness  (0% - 100%):</string>
+             <string>Finder Roundness: Disable</string>
             </property>
            </widget>
           </item>
@@ -156,7 +156,7 @@
           <item row="3" column="0">
            <widget class="QLabel" name="labelNoiseSeed">
             <property name="text">
-             <string>Noise Seed(0 - 500):</string>
+             <string>Noise Seed (0 - 500):</string>
             </property>
            </widget>
           </item>
@@ -179,7 +179,7 @@
              <number>100</number>
             </property>
             <property name="value">
-             <number>90</number>
+             <number>85</number>
             </property>
             <property name="orientation">
              <enum>Qt::Orientation::Horizontal</enum>
@@ -218,7 +218,7 @@
              <double>1.000000000000000</double>
             </property>
             <property name="value">
-             <double>90.000000000000000</double>
+             <double>85.000000000000000</double>
             </property>
            </widget>
           </item>

@@ -6,12 +6,6 @@ from shapely.geometry import box, Point, Polygon as ShapelyPoly, MultiPolygon
 from shapely.affinity import translate
 from PySide6.QtGui import QImage, QPixmap
 
-def get_superellipse_n(slider_val):
-    if slider_val <= 50:
-        return 0.8 + (slider_val / 50.0) * 1.2
-    else:
-        return 2.0 + ((slider_val - 50) / 50.0) * 6.0
-
 def create_superellipse(center, w, h, n, points=64):
     pts = []
     if n < 0.1:

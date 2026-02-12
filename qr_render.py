@@ -10,10 +10,7 @@ from shapely.affinity import rotate, translate, scale
 # ============================================================================
 
 def get_superellipse_n(slider_val):
-    if slider_val <= 50:
-        return 0.8 + (slider_val / 50.0) * 1.2
-    else:
-        return 2.0 + ((slider_val - 50) / 50.0) * 6.0
+    return slider_val/10.0
 
 def create_superellipse(center, w, h, n, points=64):
     pts = []
@@ -204,17 +201,17 @@ class QRRenderer:
             void = center_origin.buffer(inner_void/2)
             dot = center_origin.buffer(dot_sz/2)
         elif style == "Diamond":
-            # 1. Tạo hình vuông cơ bản (kích thước gốc 7, 5, 3)
+            # 1. Create basic squares (original sizes 7, 5, 3)
             sq_outer = box(-outer_sz/2, -outer_sz/2, outer_sz/2, outer_sz/2)
             sq_void  = box(-inner_void/2, -inner_void/2, inner_void/2, inner_void/2)
             sq_dot   = box(-dot_sz/2, -dot_sz/2, dot_sz/2, dot_sz/2)
             
-            # 2. Xoay 45 độ
+            # 2. Rotate 45 degrees
             outer_rot = rotate(sq_outer, 45, origin=(0,0))
             void_rot  = rotate(sq_void, 45, origin=(0,0))
             dot_rot   = rotate(sq_dot, 45, origin=(0,0))
 
-            # Tỷ lệ scale là 1 / sqrt(2) sắp xỉ 0.7071
+            # Scale factor is 1 / sqrt(2) approx 0.7071
             sf = 0.7071 
             outer = scale(outer_rot, xfact=sf, yfact=sf, origin=(0,0))
             void  = scale(void_rot, xfact=sf, yfact=sf, origin=(0,0))

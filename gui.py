@@ -164,7 +164,7 @@ class Ui_MainWindow(object):
         self.sliderModuleSize.setObjectName(u"sliderModuleSize")
         self.sliderModuleSize.setMinimum(10)
         self.sliderModuleSize.setMaximum(100)
-        self.sliderModuleSize.setValue(90)
+        self.sliderModuleSize.setValue(85)
         self.sliderModuleSize.setOrientation(Qt.Orientation.Horizontal)
 
         self.gridLayout.addWidget(self.sliderModuleSize, 2, 1, 1, 1)
@@ -188,7 +188,7 @@ class Ui_MainWindow(object):
         self.spinModuleSize.setDecimals(0)
         self.spinModuleSize.setMinimum(10.000000000000000)
         self.spinModuleSize.setSingleStep(1.000000000000000)
-        self.spinModuleSize.setValue(90.000000000000000)
+        self.spinModuleSize.setValue(85.000000000000000)
 
         self.gridLayout.addWidget(self.spinModuleSize, 2, 2, 1, 1)
 
@@ -327,7 +327,8 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_3.addWidget(self.groupBoxPreview)
 
-        self.horizontalLayout_3.setStretch(1, 1)
+        self.horizontalLayout_3.setStretch(0, 1)
+        self.horizontalLayout_3.setStretch(1, 3)
 
         self.gridLayout_3.addLayout(self.horizontalLayout_3, 0, 0, 1, 1)
 
@@ -354,10 +355,10 @@ class Ui_MainWindow(object):
         self.labelSizeQr.setText(QCoreApplication.translate("MainWindow", u"Size (mm):", None))
         self.labelLayer.setText(QCoreApplication.translate("MainWindow", u"Layer:", None))
         self.checkLinkData.setText(QCoreApplication.translate("MainWindow", u"\U0001f517 Link Data to Finder", None))
-        self.labelDataRound.setText(QCoreApplication.translate("MainWindow", u"Data Roundness  (0% - 100%):", None))
-        self.labelFinderRound.setText(QCoreApplication.translate("MainWindow", u"Finder Roundness  (0% - 100%):", None))
+        self.labelDataRound.setText(QCoreApplication.translate("MainWindow", u"Data Roundness: Disable", None))
+        self.labelFinderRound.setText(QCoreApplication.translate("MainWindow", u"Finder Roundness: Disable", None))
         self.labelModuleSize.setText(QCoreApplication.translate("MainWindow", u"Module Size (10% - 100%):", None))
-        self.labelNoiseSeed.setText(QCoreApplication.translate("MainWindow", u"Noise Seed(0 - 500):", None))
+        self.labelNoiseSeed.setText(QCoreApplication.translate("MainWindow", u"Noise Seed (0 - 500):", None))
         self.buttonSelectLogo.setText(QCoreApplication.translate("MainWindow", u"Select Logo", None))
         self.buttonRemoveLogo.setText(QCoreApplication.translate("MainWindow", u"Remove Logo", None))
         self.checkInvertLogo.setText(QCoreApplication.translate("MainWindow", u"Invert", None))
