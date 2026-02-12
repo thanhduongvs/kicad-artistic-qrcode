@@ -2,7 +2,7 @@ from PySide6.QtWidgets import (
     QApplication, QMainWindow,
     QMessageBox, QFileDialog, QVBoxLayout
 )
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, QEvent
 from gui import Ui_MainWindow
 from preview_widget import PreviewWidget
 from zoom_label import ZoomableLabel
@@ -41,6 +41,11 @@ class MainWindow(QMainWindow):
         self.ui.scrollLogo.setWidgetResizable(True)
         self.ui.scrollLogo.setStyleSheet("border: 1px dashed #555; background: #333;")
         self.ui.scrollLogo.setWidget(self.preLogo)
+
+        self.ui.scrollLogo.installEventFilter(self)
+        self.resize_timer = QTimer()
+        self.resize_timer.setSingleShot(True)
+        self.resize_timer.timeout.connect(self.apply_auto_fit)
        
         #self.ui.lineEdit.setText("Artistic QR Code Generator")
         self.ui.comboLayer.addItems(["F.SilkS", "B.SilkS", "F.Cu", "B.Cu"])
@@ -95,6 +100,16 @@ class MainWindow(QMainWindow):
         QTimer.singleShot(100, self.update_preview_qr)
 
     #### slot
+    def eventFilter(self, source, event):
+        if source == self.ui.scrollLogo and event.type() == QEvent.Resize:
+            if self.logo_path:
+                self.resize_timer.start(100)
+        return super().eventFilter(source, event)
+
+    def apply_auto_fit(self):
+        self.need_fit_logo = True
+        self.update_preview_logo()
+
     def on_layer_changed(self):
         layer = self.ui.comboLayer.currentText()
         # KiCad Colors mapping
