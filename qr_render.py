@@ -260,7 +260,7 @@ class QRRenderer:
         origin = Point(0,0)
         
         base_shape = None
-        if data_style != "Liquid":
+        if data_style not in ["Liquid", "Horizontal", "Vertical"]:
             try:
                 if data_style == "Superellipse":
                     n = get_superellipse_n(round_data)
@@ -286,18 +286,23 @@ class QRRenderer:
 
                 shape = None
                 
-                if data_style == "Liquid":
+                if data_style in ["Liquid", "Horizontal", "Vertical"]:
                     parts = [origin.buffer(half_eff)]
                     nbs = self.get_neighbors_extended(r, c)
                     bw = half_eff
-                    if nbs[0] and not self.is_finder_module(r-1,c):
-                        parts.append(box(-bw, -mod_size_mm, bw, 0)) 
-                    if nbs[1] and not self.is_finder_module(r,c+1):
-                        parts.append(box(0, -bw, mod_size_mm, bw)) 
-                    if nbs[2] and not self.is_finder_module(r+1,c):
-                        parts.append(box(-bw, 0, bw, mod_size_mm)) 
-                    if nbs[3] and not self.is_finder_module(r,c-1):
-                        parts.append(box(-mod_size_mm, -bw, 0, bw)) 
+                    
+                    if data_style in ["Liquid", "Vertical"]:
+                        if nbs[0] and not self.is_finder_module(r-1,c):
+                            parts.append(box(-bw, -mod_size_mm, bw, 0)) 
+                        if nbs[2] and not self.is_finder_module(r+1,c):
+                            parts.append(box(-bw, 0, bw, mod_size_mm)) 
+                            
+                    if data_style in ["Liquid", "Horizontal"]:
+                        if nbs[1] and not self.is_finder_module(r,c+1):
+                            parts.append(box(0, -bw, mod_size_mm, bw)) 
+                        if nbs[3] and not self.is_finder_module(r,c-1):
+                            parts.append(box(-mod_size_mm, -bw, 0, bw)) 
+                            
                     shape = unary_union(parts)
                 else:
                     shape = base_shape

@@ -51,7 +51,7 @@ class MainWindow(QMainWindow):
         self.ui.comboLayer.addItems(["F.SilkS", "B.SilkS", "F.Cu", "B.Cu"])
         self.ui.comboGlobalShape.addItems(["Square", "Circle", "Heart"])
         self.ui.comboFinderStyle.addItems(["Square", "Circle", "Diamond", "Rounded", "Superellipse"])
-        self.ui.comboDataStyle.addItems(["Square", "Circle", "Diamond", "Liquid", "Rounded", "Superellipse"])
+        self.ui.comboDataStyle.addItems(["Square", "Circle", "Diamond", "Liquid", "Horizontal", "Vertical", "Rounded", "Superellipse"])
 
         self.ui.sliderNoiseSeed.setEnabled(False)
         self.ui.spinNoiseSeed.setEnabled(False)
@@ -213,7 +213,7 @@ class MainWindow(QMainWindow):
             self.ui.spinDataRound.blockSignals(False)
         else:
             self.ui.labelDataRound.setText(f"Data Roundness: Disable")
-        check = value in ["Square", "Circle", "Diamond", "Liquid"]
+        check = value in ["Square", "Circle", "Diamond", "Liquid", "Horizontal", "Vertical"]
         self.ui.sliderDataRound.setEnabled(not check)
         self.ui.spinDataRound.setEnabled(not check)
         self.update_preview_qr()
