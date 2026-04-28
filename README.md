@@ -32,7 +32,9 @@ Unlike standard QR generators that output raster images (PNG/JPG), this tool use
 
 ### Via KiCad Plugin and Content Manager (Recommended)
 Add our custom repo to **the Plugin and Content Manager**, the URL is:
-`https://raw.githubusercontent.com/thanhduongvs/kicad-repository/main/repository.json`
+```
+https://raw.githubusercontent.com/thanhduongvs/kicad-repository/main/repository.json
+```
 
 ![pcm](images/pcm.png)
 
